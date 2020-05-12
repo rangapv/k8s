@@ -37,11 +37,9 @@ then
 	sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 
 	sudo systemctl enable kubelet && sudo systemctl start kubelet
-
-        echo "ONE MORE THING ........."
-	echo "sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --token-ttl 0"
-        echo "execute the above command and captire the node tokens"
-
+        sudo apt-get install -y cowsay
+        echo -e "ONE MORE THING ........ \n execute the below command and capture the node tokens\n sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --token-ttl 0 \n\n" | cowsay -W95 -f default
+       
 	fi 
 else
    echo "Pls install docker and re-run this Script"
