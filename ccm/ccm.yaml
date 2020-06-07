@@ -44,9 +44,6 @@ spec:
         - mountPath: /etc/ssl
           name: ssl 
           readOnly: true
-        - mountPath: /etc/ssl
-          name: ssl 
-          readOnly: true
       volumes:
       - name: ccmsecret
         secret:
