@@ -44,6 +44,9 @@ spec:
         - mountPath: /etc/kubernetes
           name: kubernetes
           readOnly: true
+        - mountPath: /etc/ssl
+          name: ssl 
+          readOnly: true
       volumes:
       - name: conf
         configMap:
