@@ -14,7 +14,7 @@ kubeblock() {
 # sudo systemctl enable kubelet && sudo systemctl start kubelet
   sudo modprobe br_netfilter
   echo "br_netfilter" | sudo tee /etc/modules-load.d/k8s.conf
-  echo "net.bridge.bridge-nf-call-ip6tables = 1 \nnet.bridge.bridge-nf-call-iptables = 1" | sudo tee /etc/sysctl.d/k8s.conf
+  echo -e "net.bridge.bridge-nf-call-ip6tables = 1 \nnet.bridge.bridge-nf-call-iptables = 1" | sudo tee /etc/sysctl.d/k8s.conf
   sudo sysctl --system
  sudo $cm1 install -y cowsay
 
