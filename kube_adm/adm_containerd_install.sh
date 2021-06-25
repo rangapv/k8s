@@ -22,7 +22,7 @@ kubeblock() {
 
 kubeinit() {
 
-	echo -e "ONE MORE THING ........ \n execute the below command and capture the node tokens\n sudo kubeadm init --config=\`./adm-init.yaml\` \n\n" | cowsay -W145 -f default
+	echo -e "ONE MORE THING ........ \n execute the below command and capture the node tokens\n sudo kubeadm init --config=./adm-init.yaml \n\n" | cowsay -W145 -f default
 	echo -e "Finally after the above command run this \n mkdir -p \$HOME/.kube
 \n sudo cp -i /etc/kubernetes/admin.conf \$HOME/.kube/config
 \n sudo chown \$(id -u):\$(id -g) \$HOME/.kube/config" | cowsay -W120 -f default
