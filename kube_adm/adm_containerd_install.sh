@@ -22,13 +22,27 @@ kubeblock() {
 
 kubeinit() {
 
-	echo -e "ONE MORE THING ........ \n execute the below command and capture the node tokens\n sudo kubeadm init --config=\`wget https://gist.github.com/rangapv/3fd8a52f66bd412b1cc0663a45c74f68.git\` \n\n" | cowsay -W145 -f default
+	echo -e "ONE MORE THING ........ \n execute the below command and capture the node tokens\n sudo kubeadm init --config=`./adm-init.yaml` \n\n" | cowsay -W145 -f default
 	echo -e "Finally after the above command run this \n mkdir -p \$HOME/.kube
 \n sudo cp -i /etc/kubernetes/admin.conf \$HOME/.kube/config
 \n sudo chown \$(id -u):\$(id -g) \$HOME/.kube/config" | cowsay -W120 -f default
 
 }
 
+kubegist() {
+
+  wg=`wget https://gist.githubusercontent.com/rangapv/3fd8a52f66bd412b1cc0663a45c74f68/raw/319296547705503a675d5b10121d59df67de3aff/kube-adm-containerd.yaml`
+  convert=$( kubeadm config migrate --old-config kube-adm-containerd.yaml --new-config adm-init.yaml)
+  rc= echo "$?"
+  if [[ ( $rc -eq 0 ) ]]
+  then
+  echo "---" | sudo tee -a adm-init.yaml > /dev/null
+  echo "kind: KubeletConfiguration" | sudo tee -a adm-init.yaml > /dev/null
+  echo "apiVersion: kubelet.config.k8s.io/v1beta1" | sudo tee -a adm-init.yaml > /dev/null
+  echo "cgroupDriver: systemd" | sudo tee -a adm-init.yaml > /dev/null
+  fi
+
+}
 
 
 dk=$(which containerd)
@@ -42,10 +56,12 @@ then
 	if [ ! -z "$d1" ]
 	then 
         kubeblock
+	kubegist
 	kubeinit
         elif [ ! -z "$u1" ]
 	then
         kubeblock 
+	kubegist
 	kubeinit
         fi 
 else
