@@ -1,9 +1,16 @@
 #!/bin/bash
 set -E
+source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh)
 kubegist() {
 
-  wg=`wget https://gist.githubusercontent.com/rangapv/3fd8a52f66bd412b1cc0663a45c74f68/raw/319296547705503a675d5b10121d59df67de3aff/kube-adm-containerd.yaml`
-  convert=$( kubeadm config migrate --old-config kube-adm-containerd.yaml --new-config adm-init.yaml)
+   if [[ -f "adm-init.yaml" ]]
+   then	   
+	sudo chmod 777 adm-init.yaml
+        cat /dev/null > adm-init.yaml 
+   fi
+	wg=`sudo wget https://gist.githubusercontent.com/rangapv/3fd8a52f66bd412b1cc0663a45c74f68/raw/319296547705503a675d5b10121d59df67de3aff/kube-adm-containerd.yaml `
+        sudo cp ./kube-adm-containerd.yaml ./kube-adm-old.yaml
+      	convert=$( kubeadm config migrate --old-config kube-adm-old.yaml --new-config adm-init.yaml)
   rc= echo "$?"
   if [[ ( $rc -eq 0 ) ]]
   then
