@@ -1,6 +1,8 @@
 #!/bin/bash
 set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh)
+source <(curl -s https://raw.githubusercontent.com/rangapv/runtimes/main/checkruntime.sh)
+
 kubegist() {
 
    if [[ -f "adm-init.yaml" ]]
@@ -30,12 +32,23 @@ kubeinit() {
         echo "Check the flag.txt for tokens to join the master"
 }
 
-dk=$(which containerd)
-ds=$?
+kuberun() {
+arrayk=("$@")
+
+for k in ${arrayk[@]}
+do
+dk=$(which $k | echo $?)
+dks=$(sudo systemctl status $k | echo $?u)
+dock[$dk]=$dks
+done
+}
+runc1=( containerd docker)
+kuberun "${runc1[@]}" 
+
 if [[ -z "$mac" ]]
 then
 
-if [[  $ds = 0  ]]
+if [[  $Flag -eq 1  ]]
 then
 
 	if [ ! -z "$d1" ]
@@ -48,7 +61,7 @@ then
 	kubeinit
         fi
 else
-   echo "Pls install containerd and re-run this Script"
+   echo "Pls install containerd/docker and re-run this Script"
 fi
 fi
 
