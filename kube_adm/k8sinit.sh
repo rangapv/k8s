@@ -2,6 +2,7 @@
 set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh)
 source <(curl -s https://raw.githubusercontent.com/rangapv/runtimes/main/checkruntime.sh)
+kubecount=0
 
 kubegist() {
 
@@ -32,23 +33,32 @@ kubeinit() {
         echo "Check the flag.txt for tokens to join the master"
 }
 
-kuberun() {
-arrayk=("$@")
 
-for k in ${arrayk[@]}
+kubecomsts() {
+ 
+arrkc=("$@")
+for n in "${arrkc[@]}"
 do
-dk=$(which $k | echo $?)
-dks=$(sudo systemctl status $k | echo $?u)
-dock[$dk]=$dks
+	jj=`which $n`
+	js="$?"
+	if [[ $js -ne 0 ]]
+	then
+		echo "The k8s component $n is not installed pls do so"
+        else
+		((kubecount+=1))
+	fi
 done
+
 }
-runc1=( containerd docker)
-kuberun "${runc1[@]}" 
+
+kcom=( kubectl kubeadm kubelet)
+kubecomsts "${kcom[@]}"
+
 
 if [[ -z "$mac" ]]
 then
 
-if [[  $Flag -eq 1  ]]
+if [[  $Flag -eq 1 && $kubecount -eq 3 ]]
 then
 
 	if [ ! -z "$d1" ]
@@ -61,7 +71,15 @@ then
 	kubeinit
         fi
 else
-   echo "Pls install containerd/docker and re-run this Script"
+     if [[ $Flag -eq 0 ]]
+     then
+     	echo "Pls install containerd/docker and re-run this Script"
+     elif [[ $kubecount -lt 3 ]]
+     then
+	     echo "All of k8s componenets are not present"
+     else
+	     echo "Cannot run init script pls debug"
+     fi
 fi
 fi
 
