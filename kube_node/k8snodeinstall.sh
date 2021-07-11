@@ -56,9 +56,11 @@ then
         then
          if [ ! -z "$d1" ]
          then
-         kubeblock
+         sudo echo "1" | sudo tee /proc/sys/net/ipv4/ip_forward > /dev/null
+	 kubeblock
          elif [ ! -z "$u1" ]
          then
+         sudo echo "1" | sudo tee /proc/sys/net/ipv4/ip_forward > /dev/null
          kubeblock
          fi
         fi
