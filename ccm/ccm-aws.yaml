@@ -41,12 +41,12 @@ spec:
         - name: AWS_ACCESS_KEY_ID
           valueFrom:
             secretKeyRef:
-              name: aws-secret
+              name: aws-access-1
               key: AWS_ACCESS_KEY_ID
         - name: AWS_SECRET_ACCESS_KEY
           valueFrom:
             secretKeyRef:
-              name: aws-secret
+              name: aws-access-2
               key: AWS_SECRET_ACCESS_KEY
         volumeMounts:
         - mountPath: /tmp
