@@ -4,8 +4,8 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.s
 
 kubeflannel() {
 
-#  kubectl apply -f https://raw.githubusercontent.com/rangapv/k8s/master/kube_flannel/kube-flannel.yml
-  kubectl apply -f https://raw.githubusercontent.com/rangapv/k8s/master/kube_flannel/kube-flannel.yml.old
+  kubectl apply -f https://raw.githubusercontent.com/rangapv/k8s/master/kube_flannel/kube-flannel.yml
+#  kubectl apply -f https://raw.githubusercontent.com/rangapv/k8s/master/kube_flannel/kube-flannel.yml.old
 
 }
 
