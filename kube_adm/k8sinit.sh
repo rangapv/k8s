@@ -86,7 +86,7 @@ then
 	   kubeinit
            elif [ ! -z "$u1" ]
 	   then
-           kubeclock
+           kubeblock
 	   kubegist
 	   kubeinit
            fi
