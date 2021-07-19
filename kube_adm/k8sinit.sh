@@ -11,8 +11,8 @@ kubegist() {
 	sudo chmod 777 adm-init.yaml
         cat /dev/null > adm-init.yaml 
    fi
-	wg=`sudo wget https://gist.githubusercontent.com/rangapv/3fd8a52f66bd412b1cc0663a45c74f68/raw/319296547705503a675d5b10121d59df67de3aff/kube-adm-containerd.yaml `
-        sudo cp ./kube-adm-containerd.yaml ./kube-adm-old.yaml
+	wg=`sudo wget  https://gist.githubusercontent.com/rangapv/3fd8a52f66bd412b1cc0663a45c74f68/raw/58751dac545842a00d892884855bbb302b5e7502/kube-adm-containerd.yaml`
+	sudo cp ./kube-adm-containerd.yaml ./kube-adm-old.yaml
       	convert=$( kubeadm config migrate --old-config kube-adm-old.yaml --new-config adm-init.yaml)
   rc= echo "$?"
   if [[ ( $rc -eq 0 ) ]]
