@@ -90,16 +90,11 @@ then
 	   kubegist
 	   kubeinit
            fi
-       else
-	  if [[ (( $Flag -eq 0 )) ]]
-          then
-     	     echo "Pls install containerd/docker and re-run this Script"
-          elif [[ $kubecount -lt 3 ]]
-          then
+       elif [[ (( $Flag -eq 0 )) ]]
+       then
+          echo "Pls install containerd/docker and re-run this Script"
+       else [[ (( $kubecount -lt 3 )) ]]
 	     echo "All of k8s componenets are not present"
-          else
 	     echo "Cannot run init script pls debug"
-          fi
        fi
 fi
-
