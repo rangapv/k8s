@@ -77,7 +77,7 @@ kubecomsts "${kcom[@]}"
 if [[ -z "$mac" ]]
 then
 
-	if [[  (( $Flag -eq 1 )) && (( $kubecount -eq 3 )) ]]
+	if [[  (( $Flag -eq 1 )) && (( $kubecount -lt 3 )) ]]
         then
 	   if [ ! -z "$d1" ]
 	   then
