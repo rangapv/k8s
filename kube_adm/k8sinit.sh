@@ -77,30 +77,29 @@ kubecomsts "${kcom[@]}"
 if [[ -z "$mac" ]]
 then
 
-if [[  $Flag -eq 1 && $kubecount -eq 3 ]]
-then
-
-	if [ ! -z "$d1" ]
-	then
-        kubeblock
-	kubegist
-	kubeinit
-        elif [ ! -z "$u1" ]
-	then
-        kubeclock
-	kubegist
-	kubeinit
-        fi
-else
-     if [[ $Flag -eq 0 ]]
-     then
-     	echo "Pls install containerd/docker and re-run this Script"
-     elif [[ $kubecount -lt 3 ]]
-     then
+	if [[  (( $Flag -eq 1 )) && (( $kubecount -eq 3 )) ]]
+        then
+	   if [ ! -z "$d1" ]
+	   then
+           kubeblock
+	   kubegist
+	   kubeinit
+           elif [ ! -z "$u1" ]
+	   then
+           kubeclock
+	   kubegist
+	   kubeinit
+           fi
+       else
+	  if [[ (( $Flag -eq 0 )) ]]
+          then
+     	     echo "Pls install containerd/docker and re-run this Script"
+          elif [[ $kubecount -lt 3 ]]
+          then
 	     echo "All of k8s componenets are not present"
-     else
+          else
 	     echo "Cannot run init script pls debug"
-     fi
-fi
+          fi
+       fi
 fi
 
