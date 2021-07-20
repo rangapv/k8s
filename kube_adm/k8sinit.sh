@@ -43,6 +43,17 @@ kubegist() {
   fi
 
 }
+
+create() {
+
+file1="/etc/kubernetes/cloud.conf"
+sudo tee << EOF /etc/kubernetes/cloud.conf >/dev/null
+[Global]
+Zone = ${str231}
+EOF
+
+}
+
 kubeinit() {
 
 	init1=$( sudo kubeadm init --config=./adm-init.yaml | sudo tee ./flag.txt)
@@ -83,11 +94,13 @@ then
 	   then
            kubeblock
 	   kubegist
+           create
 	   kubeinit
            elif [ ! -z "$u1" ]
 	   then
            kubeblock
 	   kubegist
+	   create
 	   kubeinit
            fi
        elif [[ (( $Flag -eq 0 )) ]]
