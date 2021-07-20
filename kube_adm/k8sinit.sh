@@ -51,7 +51,7 @@ sudo tee << EOF /etc/kubernetes/cloud.conf >/dev/null
 [Global]
 Zone = ${str231}
 EOF
-
+wrt=`sudo chmod 777 ${file1}`
 }
 
 kubeinit() {
