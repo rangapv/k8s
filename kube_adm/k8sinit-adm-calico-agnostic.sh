@@ -44,16 +44,6 @@ kubegist() {
 
 }
 
-create() {
-
-file1="/etc/kubernetes/cloud.conf"
-sudo tee << EOF /etc/kubernetes/cloud.conf >/dev/null
-[Global]
-Zone = ${str231}
-EOF
-wrt=`sudo chmod 777 ${file1}`
-}
-
 kubeinit() {
 
 	init1=$( sudo kubeadm init --config=./adm-init.yaml | sudo tee ./flag.txt)
@@ -94,20 +84,18 @@ then
 	   then
            kubeblock
 	   kubegist
-           create
 	   kubeinit
            elif [ ! -z "$u1" ]
 	   then
            kubeblock
 	   kubegist
-	   create
 	   kubeinit
            fi
        elif [[ (( $Flag -eq 0 )) ]]
        then
           echo "Pls install containerd/docker and re-run this Script"
        else [[ (( $kubecount -lt 3 )) ]]
-	     echo "All of k8s componenets are not present"
+	     echo "All of k8s components are not present"
 	     echo "Cannot run init script pls debug"
        fi
 fi
