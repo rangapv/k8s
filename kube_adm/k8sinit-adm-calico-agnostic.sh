@@ -30,7 +30,7 @@ kubegist() {
 	sudo chmod 777 adm-init.yaml
         cat /dev/null > adm-init.yaml 
    fi
-	wg=`sudo wget https://gist.githubusercontent.com/rangapv/866e23028170aaf2ee49656d367bb2c5/raw/0cef28e51d1a4e82caa5dceda6e0429fceae40c6/kube-adm-calico-agnostic.yaml`
+	wg=`sudo wget https://raw.githubusercontent.com/rangapv/k8s/master/configs/kube-adm-calico-agnostic.yaml`
 	sudo cp ./kube-adm-calico-agnostic.yaml ./kube-adm-old.yaml
       	convert=$( kubeadm config migrate --old-config kube-adm-old.yaml --new-config adm-init.yaml)
   rc= echo "$?"
