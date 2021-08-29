@@ -71,24 +71,24 @@ kubecomsts "${kcom[@]}"
 if [[ -z "$mac" ]]
 then
 
-	if [[  (( $Flag -eq 1 )) && (( $kubecount -lt 3 )) ]]
+	if [[  (( $Flag -eq 1 )) &&  ( ! -f flag.txt )  ]]
         then
            if [[ ! -z "$d1" ]]
 	   then
-		 if [ ( $crun -eq 1 ) ] 
+	         if [[ (( $crun -eq 1 )) ]] 
 	         then
                  kubeblock
-                 elif [ ( $drun -eq 1 ) ]
+	         elif [[ (( $drun -eq 1 )) ]]
 	         then
                  kubeblockd
                  fi
 	   kubeinit
            elif [[ ! -z "$u1" ]]
            then
-	         if [ ( $crun -eq 1 ) ]
+		 if [[ (( $crun -eq 1 )) ]]
                  then
                  kubeblock
-                 elif [ ( $drun -eq 1 ) ]
+	         elif [[ (( $drun -eq 1 )) ]]
                  then
                  kubeblockd
                  fi
