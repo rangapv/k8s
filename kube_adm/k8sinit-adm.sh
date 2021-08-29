@@ -31,7 +31,7 @@ kubeblockd() {
  echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
  sudo $cm1 update
  sudo $cm1 install -y kubectl kubeadm kubelet
- sudo sysctl --system
+ sudo systemctl enable kubelet && sudo systemctl start kubelet
  sudo $cm1 install -y cowsay
 
 }
