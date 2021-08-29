@@ -23,6 +23,20 @@ kubeblock() {
 }
 
 
+kubeblockd() {
+
+ add2="$@"
+ sudo $cm1 update && sudo $cm1 install -y apt-transport-https ca-certificates
+ sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+ sudo $cm1 update
+ sudo $cm1 install -y kubectl kubeadm kubelet
+ sudo apt-mark hold kubectl kubeadm kubelet
+ sudo sysctl --system
+ sudo $cm1 install -y cowsay
+
+}
+
 kubeinit() {
 
 	init1=$( sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --token-ttl 0 | sudo tee ./flag.txt)
@@ -59,14 +73,26 @@ then
 
 	if [[  (( $Flag -eq 1 )) && (( $kubecount -lt 3 )) ]]
         then
-	   if [ ! -z "$d1" ]
+           if [[ ! -z "$d1" ]]
 	   then
-           kubeblock
+		 if [ ( $crun -eq 1 ) ] 
+	         then
+                 kubeblock
+                 elif [ ( $drun -eq 1 ) ]
+	         then
+                 kubeblockd
+                 fi
 	   kubeinit
-           elif [ ! -z "$u1" ]
-	   then
-           kubeblock
-	   kubeinit
+           elif [[ ! -z "$u1" ]]
+           then
+	         if [ ( $crun -eq 1 ) ]
+                 then
+                 kubeblock
+                 elif [ ( $drun -eq 1 ) ]
+                 then
+                 kubeblockd
+                 fi
+           kubeinit
            fi
        elif [[ (( $Flag -eq 0 )) ]]
        then
