@@ -31,20 +31,6 @@ kubeblockd() {
  echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
  sudo $cm1 update
  sudo $cm1 install -y kubectl kubeadm kubelet
- sudo mkdir /etc/docker
- cat <<EOF | sudo tee /etc/docker/daemon.json
- {
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2"
- } 
-EOF
- sudo systemctl enable docker
- sudo systemctl daemon-reload
- sudo systemctl restart docker
  sudo systemctl enable kubelet 
  sudo systemctl start kubelet
  sudo $cm1 install -y cowsay
