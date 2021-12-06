@@ -23,14 +23,15 @@ kubeblock() {
 }
 
 
-kubegist() {
+kubegist_rename() {
 
    if [[ -f "adm-init.yaml" ]]
    then	   
 	sudo chmod 777 adm-init.yaml
         cat /dev/null > adm-init.yaml 
    fi
-	wg=`sudo wget https://gist.githubusercontent.com/rangapv/3fd8a52f66bd412b1cc0663a45c74f68/raw/260a4f874c2ef441642930a38f032a35f265dec2/kube-adm-containerd.yaml`
+	#wg=`sudo wget https://gist.githubusercontent.com/rangapv/3fd8a52f66bd412b1cc0663a45c74f68/raw/260a4f874c2ef441642930a38f032a35f265dec2/kube-adm-containerd.yaml`
+	wg=`sudo wget https://raw.githubusercontent.com/rangapv/Kube-Manifests/master/core-components/aws/kube-adm-containerd.yaml` 
 	sudo cp ./kube-adm-containerd.yaml ./kube-adm-old.yaml
       	convert=$( kubeadm config migrate --old-config kube-adm-old.yaml --new-config adm-init.yaml)
   rc= echo "$?"
@@ -43,6 +44,20 @@ kubegist() {
   fi
 
 }
+
+kubegist () {
+   
+	if [[ -f "adm-init.yaml" ]]
+        then	   
+		sudo chmod 777 adm-init.yaml
+        	cat /dev/null > adm-init.yaml 
+   	fi
+
+	wg=`sudo wget https://raw.githubusercontent.com/rangapv/Kube-Manifests/master/core-components/aws/kube-adm-containerd.yaml` 
+	sudo cp ./kube-adm-containerd.yaml ./adm-init.yaml
+
+}
+
 
 create() {
 
