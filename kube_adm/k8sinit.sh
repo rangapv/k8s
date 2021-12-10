@@ -3,6 +3,8 @@ set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh)
 source <(curl -s https://raw.githubusercontent.com/rangapv/runtimes/main/checkruntime.sh)
 kubecount=0
+newver="$3"
+echo "Installing version $newver"
 
 kubeblock() {
 
@@ -11,7 +13,7 @@ kubeblock() {
  sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
  echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
  sudo $cm1 update
- sudo $cm1 install -y kubectl kubeadm kubelet
+ sudo $cm1 install -y kubectl=$newver kubeadm=$newver kubelet=$newver
  sudo apt-mark hold kubectl kubeadm kubelet
  sudo modprobe br_netfilter
  echo "br_netfilter" | sudo tee /etc/modules-load.d/k8s.conf
