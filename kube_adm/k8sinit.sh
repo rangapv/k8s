@@ -14,7 +14,7 @@ kubeblock() {
  echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
  sudo $cm1 update
  sudo $cm1 install -y kubectl=$newver kubeadm=$newver kubelet=$newver
- sudo apt-mark hold kubectl kubeadm kubelet
+ sudo apt-mark hold kubectl=$newver kubeadm=$newver kubelet=$newver
  sudo modprobe br_netfilter
  echo "br_netfilter" | sudo tee /etc/modules-load.d/k8s.conf
  echo -e "net.bridge.bridge-nf-call-ip6tables = 1 \nnet.bridge.bridge-nf-call-iptables = 1" | sudo tee /etc/sysctl.d/k8s.conf
