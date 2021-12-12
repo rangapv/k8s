@@ -13,7 +13,7 @@ kubeblock() {
  sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
  echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
  sudo $cm1 update
- sudo $cm1 install -y kubectl=$newver kubeadm=$newver kubelet=$newver kubernetes-cni=$newver
+ sudo $cm1 install -y kubectl=$newver kubeadm=$newver kubelet=$newver kubernetes-cni
  #sudo $cm1 install -y kubectl kubeadm kubelet kubernetes-cni
  sudo apt-mark hold kubectl kubeadm kubelet kubernetes-cni
  #sudo apt-mark hold kubectl=$newver kubeadm=$newver kubelet=$newver
@@ -51,7 +51,7 @@ echo ""
 
 kcom=( kubectl kubeadm kubelet)
 kubecomsts "${kcom[@]}"
-
+echo "Flag is $Flag & kubecount is $kubecount"
 
 if [[ -z "$mac" ]]
 then
@@ -84,9 +84,11 @@ kubecomsts "${kcom[@]}"
        if [[ $Flag -eq 0 ]]
        then
        echo "Pls install containerd/docker and re-run this Script"
+       exit
        elif [[ $kubecount -lt 3 ]]
        then
        echo "All of k8s components are not present"
+       exit
        else
 	echo "The total k8s components that are installed is $kubecount "
        fi
