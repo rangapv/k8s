@@ -13,9 +13,14 @@ kubeblock() {
  sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
  echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
  sudo $cm1 update
+ sudo apt-mark unhold kubectl kubeadm kubelet kubernetes-cni
+ if [[ ! -z "$newver" ]]
+ then
  sudo $cm1 install -y kubectl=$newver kubeadm=$newver kubelet=$newver kubernetes-cni
- #sudo $cm1 install -y kubectl kubeadm kubelet kubernetes-cni
- sudo apt-mark hold kubectl kubeadm kubelet kubernetes-cni
+ else
+ sudo $cm1 install -y kubectl kubeadm kubelet kubernetes-cni
+ fi
+ #sudo apt-mark hold kubectl kubeadm kubelet kubernetes-cni
  #sudo apt-mark hold kubectl=$newver kubeadm=$newver kubelet=$newver
  sudo modprobe br_netfilter
  echo "br_netfilter" | sudo tee /etc/modules-load.d/k8s.conf > /dev/null
