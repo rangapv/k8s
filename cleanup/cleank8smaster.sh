@@ -16,6 +16,7 @@ c1=`sudo systemctl stop kubelet`
 c3=`sudo rm -rf /var/lib/cni/`
 c4=`sudo rm -rf /var/lib/kubelet/*`
 c5=`sudo rm -rf /etc/cni/`
+c6=`sudo rm -rf /etc/kubernetes/`
 
 if ([[ $Flag -eq 1 ]] && [[ $crun -eq 1 ]])
 then
