@@ -1,6 +1,17 @@
 #!/usr/bin/bash
 set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/runtimes/main/checkruntime.sh)
+source <(curl -s https://raw.githubusercontent.com/rangapv/kubestatus/main/ks.sh) 
+
+n1=`hostname`
+if [[ ( $node -eq 1 ) ]]
+then
+	unjoin=`kubectl drain $n1`
+	unjoin2=`kubectl delete node $n1`
+	unjoin3=`kubeadm reset`
+fi
+
+
 c1=`sudo systemctl stop kubelet`
 c3=`sudo rm -rf /var/lib/cni/`
 c4=`sudo rm -rf /var/lib/kubelet/*`
