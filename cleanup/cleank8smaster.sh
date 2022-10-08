@@ -5,9 +5,9 @@ source <(curl -s https://raw.githubusercontent.com/rangapv/kubestatus/main/ks.sh
 
 
 
-kctlchk=`kubectl get nodes`
+kctlchk=`kubectl get nodes | wc -l`
 kctlchks="$?"
-if [[ (( $kctlchks -eq 0 )) ]]
+if [[ (( $kctlchks -eq 0 )) && (( $kctlchk -gt 1 )) ]]
 then
 
 n1=`hostname`
