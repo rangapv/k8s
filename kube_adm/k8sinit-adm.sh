@@ -73,6 +73,11 @@ then
 
 	if [[  (( $Flag -eq 1 )) &&  ( ! -f flag.txt )  ]]
         then
+         if [[ (( $crun -eq 1 )) && (( $cnrun -eq 1 )) ]]
+         then
+		 rnc=`sudo systemctl start containerd`
+         fi
+
            if [[ ! -z "$d1" ]]
 	   then
 	         if [[ (( $crun -eq 1 )) ]] 
