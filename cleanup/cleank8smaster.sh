@@ -3,6 +3,13 @@ set -E
 source <(curl -s https://raw.githubusercontent.com/rangapv/runtimes/main/checkruntime.sh)
 source <(curl -s https://raw.githubusercontent.com/rangapv/kubestatus/main/ks.sh) 
 
+
+
+kctlchk=`kubectl get nodes`
+kctlchks="$?"
+if [[ (( $kctlchks -eq 0 )) ]]
+then
+
 n1=`hostname`
 if [[ ( $node -eq 1 ) ]]
 then
@@ -10,7 +17,7 @@ then
 	unjoin2=`kubectl delete node $n1`
 	unjoin3=`kubeadm reset`
 fi
-
+fi
 
 c1=`sudo systemctl stop kubelet`
 c3=`sudo rm -rf /var/lib/cni/`
