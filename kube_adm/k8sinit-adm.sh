@@ -71,7 +71,7 @@ if [[ (( $crun -eq 0 )) && (( $drun -eq 0 )) ]]
 then
 echo "No Container compatible runtime"
 echo "Installing containerd as default runitme"
-exec https://raw.githubusercontent.com/rangapv/runtimes/main/runcontainerD.sh
+source <(curl -s https://raw.githubusercontent.com/rangapv/runtimes/main/runcontainerD.sh) > /dev/null 2>&1
 fi
 
 
