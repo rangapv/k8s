@@ -1,7 +1,7 @@
 #!/bin/bash
 set -E
-source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh)
-source <(curl -s https://raw.githubusercontent.com/rangapv/runtimes/main/checkruntime.sh)
+source <(curl -s https://raw.githubusercontent.com/rangapv/bash-source/main/s1.sh) > /dev/null 2>&1
+source <(curl -s https://raw.githubusercontent.com/rangapv/runtimes/main/checkruntime.sh) > /dev/null 2>&1
 kubecount=0
 
 kubeblock() {
@@ -63,6 +63,18 @@ do
 done
 
 }
+
+
+#First check runtime is RUNNING
+
+if [[ (( $crun -eq 0 )) && (( $drun -eq 0 )) ]]
+then
+echo "No Container compatible runtime"
+echo "Installing containerd as default runitme"
+exec https://raw.githubusercontent.com/rangapv/runtimes/main/runcontainerD.sh
+fi
+
+
 
 kcom=( kubectl kubeadm kubelet)
 kubecomsts "${kcom[@]}"
