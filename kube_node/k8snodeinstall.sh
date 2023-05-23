@@ -10,8 +10,11 @@ kubeblock() {
 
  add2="$@"
  sudo $cm1 update && sudo $cm1 install -y apt-transport-https ca-certificates
- sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
- echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
+ # sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+ #echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
+ sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring1.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+ cat /etc/apt/keyrings/kubernetes-archive-keyring1.gpg | sudo gpg -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg --dearmor
+ echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
  sudo $cm1 update
  sudo apt-mark unhold kubectl kubeadm kubelet kubernetes-cni
  if [[ ! -z "$newver" ]]
